@@ -17,6 +17,10 @@ public class Sensor {
     private int redAlerts;
     private int disabledSensors;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "factory_id")
+    private Factory factory;
+
     public Sensor() {
     }
 
@@ -69,5 +73,13 @@ public class Sensor {
 
     public void setType(TypeSensor type) {
         this.type = type;
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
     }
 }

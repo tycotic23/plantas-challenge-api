@@ -14,6 +14,10 @@ public class RecordSensor {
     private String action;
     private LocalDateTime date;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private Usuario user;
+
     public RecordSensor() {
     }
 
@@ -41,5 +45,13 @@ public class RecordSensor {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 }

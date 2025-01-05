@@ -22,6 +22,12 @@ public class Usuario {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<Factory> factories=new HashSet<>();
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private Set<RecordFactory> recordFactories=new HashSet<>();
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private Set<RecordSensor> recordSensors=new HashSet<>();
+
     public Usuario() {
     }
 
@@ -75,5 +81,23 @@ public class Usuario {
     public void addFactory(Factory factory) {
         factory.setUser(this);
         factories.add(factory);
+    }
+
+    public Set<RecordFactory> getRecordFactories() {
+        return recordFactories;
+    }
+
+    public void addRecordFactories(RecordFactory recordFactory) {
+        recordFactory.setUser(this);
+        recordFactories.add(recordFactory);
+    }
+
+    public Set<RecordSensor> getRecordSensors() {
+        return recordSensors;
+    }
+
+    public void addRecordSensors(RecordSensor recordSensor) {
+        recordSensor.setUser(this);
+        recordSensors.add(recordSensor);
     }
 }

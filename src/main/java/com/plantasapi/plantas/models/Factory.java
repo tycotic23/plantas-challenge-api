@@ -2,6 +2,9 @@ package com.plantasapi.plantas.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 public class Factory {
@@ -17,6 +20,9 @@ public class Factory {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Usuario user;
+
+    @OneToMany(mappedBy = "factory",fetch = FetchType.EAGER)
+    private Set<Sensor> sensors=new HashSet<>();
 
     public Factory() {
     }
@@ -53,6 +59,15 @@ public class Factory {
 
     public void setUser(Usuario usuario) {
         this.user = usuario;
+    }
+
+    public Set<Sensor> getSensors() {
+        return sensors;
+    }
+
+    public void addSensor(Sensor sensor) {
+        sensor.setFactory(this);
+        sensors.add(sensor);
     }
 }
 
