@@ -7,7 +7,7 @@ import java.util.List;
 public interface SensorService {
 
     List<Sensor> findAllSensors();
-    Sensor saveSensor(Sensor Sensor);
+    Sensor saveSensor(Sensor sensor);
 
     void deleteSensor(long id);
     Sensor findSensor(long id);
