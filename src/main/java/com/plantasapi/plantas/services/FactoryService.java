@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface FactoryService {
     List<Factory> findAllFactories();
+    List<Factory> findAllUserFactories(long userId);
     Factory saveFactory(Factory factory);
 
     void deleteFactory(long id);

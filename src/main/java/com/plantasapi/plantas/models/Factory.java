@@ -14,6 +14,10 @@ public class Factory {
     private String country;
     private String name;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private Usuario user;
+
     public Factory() {
     }
 
@@ -41,6 +45,14 @@ public class Factory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario usuario) {
+        this.user = usuario;
     }
 }
 

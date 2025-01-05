@@ -44,4 +44,9 @@ public class FactoryServiceImplement implements FactoryService {
     public Factory findFactory(long id) {
         return factoryRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Factory> findAllUserFactories(long userId) {
+        return factoryRepository.findByUser_id(userId);
+    }
 }
