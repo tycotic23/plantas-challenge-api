@@ -6,5 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface SensorRepository extends JpaRepository<Sensor,Long> {
-    boolean existsByFactory_idAndByType_id(long factory_id,long Type_id);
+    boolean existsByFactory_idAndType_id(long factory_id,long type_id);
+    void deleteByFactory_idAndType_id(long factory_id,long type_id);
 }

@@ -12,4 +12,7 @@ public interface SensorService {
     void deleteSensor(long id);
     Sensor findSensor(long id);
     Sensor updateSensor(long id,Sensor newSensor);
+
+    boolean existsByFactory_idAndByType_id(long factory_id,long type_id);
+    void deleteByFactory_idAndType_id(long factory_id,long type_id);
 }

@@ -46,4 +46,14 @@ public class SensorServiceImplement implements SensorService {
                    return  sensorRepository.save(newSensor);
                 });
     }
+
+    @Override
+    public boolean existsByFactory_idAndByType_id(long factory_id, long type_id) {
+        return sensorRepository.existsByFactory_idAndType_id(factory_id,type_id);
+    }
+
+    @Override
+    public void deleteByFactory_idAndType_id(long factory_id, long type_id) {
+        sensorRepository.deleteByFactory_idAndType_id(factory_id,type_id);
+    }
 }

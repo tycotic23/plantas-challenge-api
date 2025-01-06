@@ -26,20 +26,16 @@ public class PlantasApplication {
 			Usuario admin=new Usuario("jorge","jorgito@gmail.com","jorgito","asdasdas");
 			Factory factory=new Factory("Argentina","hola");
 			Sensor s1=new Sensor(23,54,62,34);
-			Sensor s2=new Sensor(12,2,5,43);
 			TypeSensor type=new TypeSensor("Fuego");
 
 			factory.addSensor(s1);
-			factory.addSensor(s2);
 			type.addSensor(s1);
-			type.addSensor(s2);
 			admin.addFactory(factory);
 
 			userRepository.save(admin);
 			factoryRepository.save(factory);
 			typeSensorRepository.save(type);
 			sensorRepository.save(s1);
-			sensorRepository.save(s2);
 		});
 	}
 
