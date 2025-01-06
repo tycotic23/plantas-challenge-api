@@ -1,5 +1,5 @@
 package com.plantasapi.plantas.configurations;
-
+/*
 import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,3 +34,4 @@ public class WebAuthentication  extends GlobalAuthenticationConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
+*/

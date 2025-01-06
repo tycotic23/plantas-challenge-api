@@ -1,5 +1,5 @@
 package com.plantasapi.plantas.configurations;
-
+/*
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +28,6 @@ public class WebAuthorization {
                                         .passwordParameter("password")
                                         .loginPage("/login")
                                         .permitAll()
-                        /*httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/login")
-                            .usernameParameter("email")
-                            .passwordParameter("password");}*/
                 )
                 .build();
     }
@@ -42,4 +38,4 @@ public class WebAuthorization {
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     }
-}
+}*/

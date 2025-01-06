@@ -17,12 +17,12 @@ public class FactoryController {
     @GetMapping("")
     public ResponseEntity<Object> getAllFactories(){
 
-        return new ResponseEntity<>(factoryService.findAllFactories(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(factoryService.findAllFactoriesDTO(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getFactory(@PathVariable Long id){
-        return new ResponseEntity<>(factoryService.findFactory(id),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(factoryService.findFactoryDTO(id),HttpStatus.ACCEPTED);
     }
 
     @PostMapping("")

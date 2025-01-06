@@ -1,5 +1,7 @@
 package com.plantasapi.plantas.services.implement;
 
+import com.plantasapi.plantas.dtos.FactoryDTO;
+import com.plantasapi.plantas.dtos.FactoryInfoDTO;
 import com.plantasapi.plantas.models.Factory;
 import com.plantasapi.plantas.repositories.FactoryRepository;
 import com.plantasapi.plantas.services.FactoryService;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FactoryServiceImplement implements FactoryService {
@@ -16,6 +19,11 @@ public class FactoryServiceImplement implements FactoryService {
     @Override
     public List<Factory> findAllFactories() {
         return factoryRepository.findAll();
+    }
+
+    @Override
+    public List<FactoryInfoDTO> findAllFactoriesDTO() {
+        return findAllFactories().stream().map(FactoryInfoDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -43,6 +51,11 @@ public class FactoryServiceImplement implements FactoryService {
     @Override
     public Factory findFactory(long id) {
         return factoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public FactoryDTO findFactoryDTO(long id) {
+        return new FactoryDTO(findFactory(id));
     }
 
     @Override
