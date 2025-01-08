@@ -28,8 +28,8 @@ public class UserController {
         return new ResponseEntity<>(authService.verify(user), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/{id}/factories")
+    /*@GetMapping("/{id}/factories")
     public ResponseEntity<Object> getAllUserFactories(@PathVariable Long id){
         return new ResponseEntity<>(factoryService.findAllUserFactories(id), HttpStatus.ACCEPTED);
-    }
+    }*/
 }

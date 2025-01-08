@@ -10,12 +10,19 @@ public interface FactoryService {
     List<Factory> findAllFactories();
 
     List<FactoryInfoDTO> findAllFactoriesDTO();
-    List<Factory> findAllUserFactories(long userId);
+    List<Factory> findAllUserFactories(String username);
+
+    List<FactoryInfoDTO> findAllUserFactoriesDTO(String username);
     Factory saveFactory(Factory factory);
 
     void deleteFactory(long id);
+
+    void deleteUserFactory(String username,long id);
     Factory findFactory(long id);
 
     FactoryDTO findFactoryDTO(long id);
+
+    Factory findFactoryUser(String username,long id);
+    FactoryDTO findFactoryUserDTO(String username,long id);
     Factory updateFactory(long id,Factory newFactory);
 }

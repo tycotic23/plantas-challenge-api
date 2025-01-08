@@ -36,8 +36,8 @@ public class AuthServiceImplement{
                 ));
 
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(user.getUsername());
+            return jwtService.generateToken(user.getUsername(),user.getId());
         }
-        return "fail";
+        return "";
     }
 }

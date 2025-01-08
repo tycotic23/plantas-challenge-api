@@ -27,6 +27,11 @@ public class FactoryServiceImplement implements FactoryService {
     }
 
     @Override
+    public List<FactoryInfoDTO> findAllUserFactoriesDTO(String username) {
+        return findAllUserFactories(username).stream().map(FactoryInfoDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
     public Factory saveFactory(Factory factory) {
         return factoryRepository.save(factory);
     }
@@ -59,7 +64,22 @@ public class FactoryServiceImplement implements FactoryService {
     }
 
     @Override
-    public List<Factory> findAllUserFactories(long userId) {
-        return factoryRepository.findByUser_id(userId);
+    public List<Factory> findAllUserFactories(String username) {
+        return factoryRepository.findByUser_username(username);
+    }
+
+    @Override
+    public Factory findFactoryUser(String username, long id) {
+        return factoryRepository.findByUser_usernameAndId(username,id).orElse(null);
+    }
+
+    @Override
+    public FactoryDTO findFactoryUserDTO(String username, long id) {
+        return new FactoryDTO(findFactoryUser(username,id));
+    }
+
+    @Override
+    public void deleteUserFactory(String username, long id) {
+        factoryRepository.deleteByUser_usernameAndId(username,id);
     }
 }
