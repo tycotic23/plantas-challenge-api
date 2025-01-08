@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -30,6 +31,10 @@ public class WebAuthorization {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws  Exception{
 
@@ -40,6 +45,7 @@ public class WebAuthorization {
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -57,10 +63,4 @@ public class WebAuthorization {
         return config.getAuthenticationManager();
     }
 
-    private void clearAuthenticationAttributes(HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        if(session!=null){
-            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-        }
-    }
 }

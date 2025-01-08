@@ -2,14 +2,10 @@ package com.plantasapi.plantas.services.implement;
 
 import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.repositories.UserRepository;
-import com.plantasapi.plantas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +15,9 @@ public class AuthServiceImplement{
     private UserRepository userRepository;
 
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
+    @Autowired
+    private JWTService jwtService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -37,7 +36,7 @@ public class AuthServiceImplement{
                 ));
 
         if(authentication.isAuthenticated()){
-            return "success";
+            return jwtService.generateToken(user.getUsername());
         }
         return "fail";
     }
