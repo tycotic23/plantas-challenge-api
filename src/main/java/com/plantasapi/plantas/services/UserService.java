@@ -8,4 +8,5 @@ public interface UserService {
     Usuario findUserByEmail(String email);
     boolean existsByEmail(String email);
     boolean existsById(long id);
+
 }

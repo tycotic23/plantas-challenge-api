@@ -14,38 +14,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImplement implements UserService, UserDetailsService {
+public class AuthServiceImplement{
     @Autowired
     private UserRepository userRepository;
 
+    private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
-    @Override
-    public Usuario findUser(long id) {
-        return userRepository.findById(id).orElse(null);
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+
+    public Usuario register(Usuario user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
-    @Override
-    public Usuario findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
-    }
+    public String verify(Usuario user) {
+        Authentication authentication=authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        user.getUsername(),
+                        user.getPassword()
+                ));
 
-    @Override
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    @Override
-    public boolean existsById(long id) {
-        return userRepository.existsById(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario user=userRepository.findByUsername(username).orElse(null);
-        if(user ==null){
-            throw new UsernameNotFoundException("Usuario no encontrado");
+        if(authentication.isAuthenticated()){
+            return "success";
         }
-
-        return user;
+        return "fail";
     }
 }

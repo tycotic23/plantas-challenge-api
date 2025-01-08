@@ -8,6 +8,8 @@ import com.plantasapi.plantas.repositories.FactoryRepository;
 import com.plantasapi.plantas.repositories.SensorRepository;
 import com.plantasapi.plantas.repositories.TypeSensorRepository;
 import com.plantasapi.plantas.repositories.UserRepository;
+import com.plantasapi.plantas.services.implement.AuthServiceImplement;
+import com.plantasapi.plantas.services.implement.UserServiceImplement;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +23,7 @@ public class PlantasApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(UserRepository userRepository, FactoryRepository factoryRepository, SensorRepository sensorRepository, TypeSensorRepository typeSensorRepository){
+	public CommandLineRunner initData(UserRepository userRepository, AuthServiceImplement authService, FactoryRepository factoryRepository, SensorRepository sensorRepository, TypeSensorRepository typeSensorRepository){
 		return (args -> {
 			Usuario admin=new Usuario("jorge","jorgito@gmail.com","jorgito","asdasdas");
 			Factory factory=new Factory("Argentina","hola");
@@ -32,7 +34,7 @@ public class PlantasApplication {
 			type.addSensor(s1);
 			admin.addFactory(factory);
 
-			userRepository.save(admin);
+			authService.register(admin);
 			factoryRepository.save(factory);
 			typeSensorRepository.save(type);
 			sensorRepository.save(s1);
