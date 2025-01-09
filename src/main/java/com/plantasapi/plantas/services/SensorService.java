@@ -4,6 +4,7 @@ import com.plantasapi.plantas.dtos.SensorDTO;
 import com.plantasapi.plantas.models.Sensor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface SensorService {
@@ -20,5 +21,5 @@ public interface SensorService {
 
     Sensor findByFactory_user_usernameAndId(String username, long id);
 
-    Object groupByType();
+    Map<String,SensorDTO> groupByType(String username);
 }

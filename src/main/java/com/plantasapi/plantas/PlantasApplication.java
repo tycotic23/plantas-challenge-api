@@ -51,7 +51,7 @@ public class PlantasApplication {
 			type2.addSensor(s4);
 			type3.addSensor(s5);
 			admin.addFactory(factory);
-			user2.addFactory(factory2);
+			admin.addFactory(factory2);
 
 			authService.register(admin);
 			authService.register(user2);
@@ -61,6 +61,11 @@ public class PlantasApplication {
 			typeSensorRepository.save(type2);
 			typeSensorRepository.save(type3);
 			sensorRepository.save(s1);
+			sensorRepository.save(s2);
+			sensorRepository.save(s3);
+			sensorRepository.save(s4);
+			sensorRepository.save(s5);
+
 		});
 	}
 

@@ -7,7 +7,9 @@ import com.plantasapi.plantas.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,7 +67,23 @@ public class SensorServiceImplement implements SensorService {
     }
 
     @Override
-    public Object groupByType() {
-        return sensorRepository.groupByType();
+    public Map<String,SensorDTO> groupByType(String username) {
+
+        Map<String,List<SensorDTO>> groupedSensorsDTO=sensorRepository.findByFactory_user_username(username).stream()
+                .map(SensorDTO::new)
+                .collect(Collectors.groupingBy(SensorDTO::getType));
+
+        Map<String,SensorDTO> reducedSensorsDTO=new HashMap<>();
+
+        groupedSensorsDTO.forEach(
+                (type,sensors)-> {
+                    //el id es -1 para que no coincida con ninguno de la bdd, para evitar posibles errores
+                    SensorDTO acum=new SensorDTO(-1, type, 0, 0, 0, 0);
+                    sensors.forEach(acum::sum);
+                    reducedSensorsDTO.put(type,acum);
+                }
+        );
+
+        return reducedSensorsDTO;
     }
 }

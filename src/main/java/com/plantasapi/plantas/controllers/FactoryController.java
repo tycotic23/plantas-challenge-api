@@ -1,6 +1,7 @@
 package com.plantasapi.plantas.controllers;
 
 import com.plantasapi.plantas.dtos.FactoryDTO;
+import com.plantasapi.plantas.dtos.FactoryInfoDTO;
 import com.plantasapi.plantas.dtos.SensorCreateDTO;
 import com.plantasapi.plantas.dtos.SensorDTO;
 import com.plantasapi.plantas.models.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/factory")
@@ -37,14 +39,14 @@ public class FactoryController {
     private RecordSensorServiceImplement recordSensorService;
 
     @GetMapping("")
-    public ResponseEntity<Object> getAllFactories(Authentication authentication){
+    public ResponseEntity<List<FactoryInfoDTO>> getAllFactories(Authentication authentication){
         //trae todas las plantas, pero solo del usuario autenticado
         String username=authentication.getName();
         return new ResponseEntity<>(factoryService.findAllUserFactoriesDTO(username), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getFactory(Authentication authentication,@PathVariable Long id){
+    public ResponseEntity<FactoryDTO> getFactory(Authentication authentication,@PathVariable Long id){
         //trae la planta en cuestion siempre que pertenezca al usuario autenticado
         String username=authentication.getName();
         return new ResponseEntity<>(factoryService.findFactoryUserDTO(username,id),HttpStatus.ACCEPTED);

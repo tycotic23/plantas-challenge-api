@@ -56,4 +56,13 @@ public class SensorDTO {
     public int getDisabled_sensors() {
         return disabled_sensors;
     }
+
+    public void sum(SensorDTO b){
+        //suma los valores de los sensores, pensado para acumular sensores de un mismo tipo
+        type=b.getType();
+        readings=getReadings()+b.getReadings();
+        medium_alerts=getMedium_alerts()+b.getMedium_alerts();
+        red_alerts=getRed_alerts()+b.getRed_alerts();
+        disabled_sensors=getDisabled_sensors()+b.getDisabled_sensors();
+    }
 }

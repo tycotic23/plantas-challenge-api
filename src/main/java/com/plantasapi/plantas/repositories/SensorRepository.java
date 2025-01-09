@@ -17,7 +17,9 @@ public interface SensorRepository extends JpaRepository<Sensor,Long> {
 
     Optional<Sensor> findByFactory_user_usernameAndId(String username, long id);
 
-    //@Query("select type.type, sum(readings) as readings, sum(mediumAlerts) as medium_alerts,sum(redAlerts) as red_alerts,sum(disabledSensors) as disabled_sensors from Sensor group by type.type")
-    @Query(value = "select id,readings,type_id as type, medium_Alerts,red_Alerts,disabled_Sensors from Sensor",nativeQuery = true)
-    List<SensorDTO> groupByType();
+
+    //@Query(value = "select id,sum(readings) as readings,type_id,factory_id, sum(medium_Alerts) as medium_alerts ,sum(red_Alerts) as red_alerts,sum(disabled_Sensors) as disabled_sensors from Sensor group by type",nativeQuery = true)
+    //List<Sensor> groupByType();
+
+    List<Sensor> findByFactory_user_username(String username);
 }
