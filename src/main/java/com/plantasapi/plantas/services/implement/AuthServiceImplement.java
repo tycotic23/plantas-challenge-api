@@ -1,5 +1,6 @@
 package com.plantasapi.plantas.services.implement;
 
+import com.plantasapi.plantas.dtos.UserLoginResponseDTO;
 import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,22 @@ public class AuthServiceImplement{
         return userRepository.save(user);
     }
 
-    public String verify(Usuario user) {
+    public UserLoginResponseDTO verify(Usuario user) {
+
+        Usuario finduser=userRepository.findByEmail(user.getEmail()).orElse(null);
+        if(finduser==null){
+            return new UserLoginResponseDTO("","");
+        }
         Authentication authentication=authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        user.getUsername(),
+                        finduser.getUsername(),
                         user.getPassword()
                 ));
 
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(user.getUsername(),user.getId());
+            String token=jwtService.generateToken(user.getUsername(),user.getId());
+            return new UserLoginResponseDTO(finduser.getUsername(),token);
         }
-        return "";
+        return new UserLoginResponseDTO("","");
     }
 }

@@ -2,6 +2,7 @@ package com.plantasapi.plantas.controllers;
 
 
 import com.plantasapi.plantas.dtos.SensorDTO;
+import com.plantasapi.plantas.dtos.UserLoginResponseDTO;
 import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.services.implement.AuthServiceImplement;
 import com.plantasapi.plantas.services.implement.FactoryServiceImplement;
@@ -34,7 +35,11 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody Usuario user){
-        return new ResponseEntity<>(authService.verify(user), HttpStatus.ACCEPTED);
+        UserLoginResponseDTO userLogin=authService.verify(user);
+        if(userLogin.getToken().isEmpty()){
+            return new ResponseEntity<>("Usuario o contraseña incorrectos", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(userLogin, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/checkLogin")

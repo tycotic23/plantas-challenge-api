@@ -14,6 +14,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class PlantasApplication {
@@ -23,10 +25,23 @@ public class PlantasApplication {
 	}
 
 	@Bean
+	public WebMvcConfigurer corsConfigurer(){
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200/")
+						.allowedMethods("*")
+						.allowedHeaders("*");
+			}
+		};
+	}
+
+	@Bean
 	public CommandLineRunner initData(UserRepository userRepository, AuthServiceImplement authService, FactoryRepository factoryRepository, SensorRepository sensorRepository, TypeSensorRepository typeSensorRepository){
 		return (args -> {
 			Usuario admin=new Usuario("jorge","jorgito@gmail.com","jorgito","asdasdas");
-			Usuario user2=new Usuario("jorge2","jorgito@gmail.com","jorgito","asdasdas");
+			Usuario user2=new Usuario("jorge2","jorgisdfsdfto@gmail.com","jorgito","asdasdas");
 			Factory factory=new Factory("Argentina","hola");
 			Factory factory2=new Factory("Argentina","hola");
 			Sensor s1=new Sensor(23,54,62,34);
