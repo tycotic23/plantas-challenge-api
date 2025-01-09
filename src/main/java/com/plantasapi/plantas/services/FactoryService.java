@@ -17,7 +17,7 @@ public interface FactoryService {
 
     void deleteFactory(long id);
 
-    void deleteUserFactory(String username,long id);
+    boolean existsByUser_usernameAndId(String username,long id);
     Factory findFactory(long id);
 
     FactoryDTO findFactoryDTO(long id);

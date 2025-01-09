@@ -1,8 +1,10 @@
 package com.plantasapi.plantas.services;
 
+import com.plantasapi.plantas.dtos.SensorDTO;
 import com.plantasapi.plantas.models.Sensor;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SensorService {
 
@@ -15,4 +17,8 @@ public interface SensorService {
 
     boolean existsByFactory_idAndByType_id(long factory_id,long type_id);
     void deleteByFactory_idAndType_id(long factory_id,long type_id);
+
+    Sensor findByFactory_user_usernameAndId(String username, long id);
+
+    Object groupByType();
 }

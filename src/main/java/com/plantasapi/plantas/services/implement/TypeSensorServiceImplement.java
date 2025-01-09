@@ -17,4 +17,9 @@ public class TypeSensorServiceImplement implements TypeSensorService {
     public List<TypeSensor> findAllTypeSensors() {
         return typeSensorRepository.findAll();
     }
+
+    @Override
+    public TypeSensor findByType(String type) {
+        return typeSensorRepository.findByType(type).orElse(null);
+    }
 }

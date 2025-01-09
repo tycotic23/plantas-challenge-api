@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface FactoryRepository extends JpaRepository<Factory,Long> {
     List<Factory> findByUser_username(String username);
     Optional<Factory> findByUser_usernameAndId(String username,long id);
-    void deleteByUser_usernameAndId(String username,long id);
+
+    boolean existsByUser_usernameAndId(String username,long id);
 }

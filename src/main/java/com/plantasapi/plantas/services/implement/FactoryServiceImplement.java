@@ -79,7 +79,7 @@ public class FactoryServiceImplement implements FactoryService {
     }
 
     @Override
-    public void deleteUserFactory(String username, long id) {
-        factoryRepository.deleteByUser_usernameAndId(username,id);
+    public boolean existsByUser_usernameAndId(String username, long id) {
+        return factoryRepository.existsByUser_usernameAndId(username,id);
     }
 }

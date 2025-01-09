@@ -1,9 +1,8 @@
 package com.plantasapi.plantas.dtos;
 
-import com.plantasapi.plantas.models.Factory;
 import com.plantasapi.plantas.models.Sensor;
 
-public class SensorDTO {
+public class SensorCreateDTO {
     private long id;
     private String type;
     private int readings;
@@ -12,11 +11,11 @@ public class SensorDTO {
 
     private int disabled_sensors;
 
-    public SensorDTO() {
+    public SensorCreateDTO() {
     }
 
-    public SensorDTO(long id, String type, int readings, int medium_alerts, int red_alerts, int disabled_sensors) {
-        this.id = id;
+    public SensorCreateDTO(String type, int readings, int medium_alerts, int red_alerts, int disabled_sensors) {
+
         this.type = type;
         this.readings = readings;
         this.medium_alerts = medium_alerts;
@@ -24,7 +23,7 @@ public class SensorDTO {
         this.disabled_sensors = disabled_sensors;
     }
 
-    public SensorDTO(Sensor sensor){
+    public SensorCreateDTO(Sensor sensor){
         id=sensor.getId();
         type=sensor.getType().getType();
         readings=sensor.getReadings();
@@ -55,5 +54,25 @@ public class SensorDTO {
 
     public int getDisabled_sensors() {
         return disabled_sensors;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setReadings(int readings) {
+        this.readings = readings;
+    }
+
+    public void setMedium_alerts(int medium_alerts) {
+        this.medium_alerts = medium_alerts;
+    }
+
+    public void setRed_alerts(int red_alerts) {
+        this.red_alerts = red_alerts;
+    }
+
+    public void setDisabled_sensors(int disabled_sensors) {
+        this.disabled_sensors = disabled_sensors;
     }
 }
