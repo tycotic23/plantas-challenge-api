@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 public class FactoryDTO {
     private long id;
     private String country;
+
+    private String flag;
     private String name;
     private int readings;
     private int medium_alerts;
@@ -23,6 +25,7 @@ public class FactoryDTO {
         id=factory.getId();
         name= factory.getName();
         country=factory.getCountry();
+        flag=factory.getFlag();
         readings=factory.getSensors().stream().mapToInt(Sensor::getReadings).reduce(0,Integer::sum);
         medium_alerts=factory.getSensors().stream().mapToInt(Sensor::getMediumAlerts).reduce(0,Integer::sum);
         red_alerts=factory.getSensors().stream().mapToInt(Sensor::getRedAlerts).reduce(0,Integer::sum);
@@ -60,5 +63,9 @@ public class FactoryDTO {
 
     public Set<SensorDTO> getSensors() {
         return sensors;
+    }
+
+    public String getFlag() {
+        return flag;
     }
 }

@@ -42,7 +42,7 @@ public class AuthServiceImplement{
                 ));
 
         if(authentication.isAuthenticated()){
-            String token=jwtService.generateToken(user.getUsername(),user.getId());
+            String token=jwtService.generateToken(finduser.getUsername(),user.getId());
             return new UserLoginResponseDTO(finduser.getUsername(),token);
         }
         return new UserLoginResponseDTO("","");

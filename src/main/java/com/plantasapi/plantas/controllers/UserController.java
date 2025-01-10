@@ -50,11 +50,22 @@ public class UserController {
 
 
     /*
-    * Trae todos los sensores de todas las plantas del usuario autenticado agrupadas y sumadas por tipo en una unica coleccion
+    * Trae todos los sensores de todas las plantas del usuario autenticado reducidas en un solo sensor
     *
     * */
+    @GetMapping("/sensorFlat")
+    public ResponseEntity<SensorDTO> allSensorFlat(Authentication authentication){
+        String username=authentication.getName();
+        return new ResponseEntity<>(sensorService.reduceAll(username),HttpStatus.OK);
+    }
+
+    /*
+     * Trae todos los sensores de todas las plantas del usuario autenticado agrupadas y sumadas por tipo en una unica coleccion
+     *
+     * */
+
     @GetMapping("/sensor")
-    public ResponseEntity<Map<String, SensorDTO>> groupByType(Authentication authentication){
+    public ResponseEntity<Map<String, SensorDTO>> allSensorGroupByType(Authentication authentication){
         String username=authentication.getName();
         return new ResponseEntity<>(sensorService.groupByType(username),HttpStatus.OK);
     }

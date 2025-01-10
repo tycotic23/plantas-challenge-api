@@ -42,17 +42,22 @@ public class PlantasApplication {
 		return (args -> {
 			Usuario admin=new Usuario("jorge","jorgito@gmail.com","jorgito","asdasdas");
 			Usuario user2=new Usuario("jorge2","jorgisdfsdfto@gmail.com","jorgito","asdasdas");
-			Factory factory=new Factory("Argentina","hola");
-			Factory factory2=new Factory("Argentina","hola");
+			Factory factory=new Factory("Argentina","hola","https://flagcdn.com/w320/gs.png");
+			Factory factory2=new Factory("Argentina","hola","https://flagcdn.com/w320/gs.png");
 			Sensor s1=new Sensor(23,54,62,34);
 			Sensor s2=new Sensor(23,54,62,34);
 			Sensor s3=new Sensor(23,54,62,34);
 			Sensor s4=new Sensor(23,54,62,34);
 			Sensor s5=new Sensor(23,54,62,34);
 
-			TypeSensor type=new TypeSensor("Fuego");
-			TypeSensor type2=new TypeSensor("Agua");
+			TypeSensor type=new TypeSensor("Temperatura");
+			TypeSensor type2=new TypeSensor("Presión");
 			TypeSensor type3=new TypeSensor("Viento");
+			TypeSensor type4=new TypeSensor("Niveles");
+			TypeSensor type5=new TypeSensor("Energía");
+			TypeSensor type6=new TypeSensor("Tensión");
+			TypeSensor type7=new TypeSensor("Monóxido de carbono");
+			TypeSensor type8=new TypeSensor("Otros gases");
 
 
 			factory.addSensor(s1);
@@ -75,6 +80,11 @@ public class PlantasApplication {
 			typeSensorRepository.save(type);
 			typeSensorRepository.save(type2);
 			typeSensorRepository.save(type3);
+			typeSensorRepository.save(type4);
+			typeSensorRepository.save(type5);
+			typeSensorRepository.save(type6);
+			typeSensorRepository.save(type7);
+			typeSensorRepository.save(type8);
 			sensorRepository.save(s1);
 			sensorRepository.save(s2);
 			sensorRepository.save(s3);

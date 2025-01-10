@@ -15,6 +15,7 @@ public class Factory {
     private long id;
 
     private String country;
+    private String flag;
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -25,6 +26,12 @@ public class Factory {
     private Set<Sensor> sensors=new HashSet<>();
 
     public Factory() {
+    }
+
+    public Factory(String country, String name, String flag) {
+        this.country = country;
+        this.flag = flag;
+        this.name = name;
     }
 
     public Factory(String country, String name) {
@@ -68,6 +75,14 @@ public class Factory {
     public void addSensor(Sensor sensor) {
         sensor.setFactory(this);
         sensors.add(sensor);
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }
 

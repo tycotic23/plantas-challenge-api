@@ -22,4 +22,6 @@ public interface SensorService {
     Sensor findByFactory_user_usernameAndId(String username, long id);
 
     Map<String,SensorDTO> groupByType(String username);
+
+    SensorDTO reduceAll(String username);
 }

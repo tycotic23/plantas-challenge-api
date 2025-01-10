@@ -107,6 +107,10 @@ public class FactoryController {
             oldFactory.setCountry(newfactory.getCountry());
         }
 
+        if(newfactory.getFlag()!=null){
+            oldFactory.setFlag(newfactory.getFlag());
+        }
+
         //guardar en el historial
         RecordFactory recordFactory= new RecordFactory("Modificar Planta "+newfactory.getName(), LocalDateTime.now());
         recordFactory.setUser((Usuario) authentication.getPrincipal());

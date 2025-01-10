@@ -86,4 +86,16 @@ public class SensorServiceImplement implements SensorService {
 
         return reducedSensorsDTO;
     }
+
+    @Override
+    public SensorDTO reduceAll(String username) {
+        return sensorRepository.findByFactory_user_username(username).stream().map(SensorDTO::new).reduce(new SensorDTO(-1, "type", 0, 0, 0, 0),(a,b)-> {
+            return new SensorDTO(-1,
+                    b.getType(),
+                    a.getReadings()+b.getReadings(),
+                    a.getMedium_alerts()+b.getMedium_alerts(),
+                    a.getRed_alerts()+b.getRed_alerts(),
+                    a.getDisabled_sensors()+b.getDisabled_sensors());
+        });
+    }
 }
