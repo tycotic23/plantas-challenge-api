@@ -49,4 +49,15 @@ public class UserServiceImplement implements UserService, UserDetailsService {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+    @Override
+    public Usuario updateUserEmail(String username, String email) {
+        return userRepository.findByUsername(username)
+                .map(user->{
+                    user.setEmail(email);
+                    return userRepository.save(user);
+                }).orElseGet(()->{
+                    return null;
+                });
+    }
 }

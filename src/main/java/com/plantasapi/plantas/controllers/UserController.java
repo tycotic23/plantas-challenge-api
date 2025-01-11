@@ -2,6 +2,7 @@ package com.plantasapi.plantas.controllers;
 
 
 import com.plantasapi.plantas.dtos.SensorDTO;
+import com.plantasapi.plantas.dtos.UserChangePasswordDTO;
 import com.plantasapi.plantas.dtos.UserLoginResponseDTO;
 import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.services.implement.AuthServiceImplement;
@@ -79,12 +80,30 @@ public class UserController {
         return new ResponseEntity<>(userLogin, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/checkLogin")
-    public ResponseEntity<Object> checkLogin(){
-        //revisa si el token sigue siendo válido, útil para revisar un token que quedó en una cookie
+    @PatchMapping("/email")
+    public ResponseEntity<Object> changeUserEmail(Authentication authentication,@RequestBody Usuario user){
+        //verificar la contraseña
+        Usuario userToVerify=new Usuario();
+        Usuario authUser=(Usuario)authentication.getPrincipal();
+        userToVerify.setEmail(authUser.getEmail());
+        userToVerify.setPassword(user.getPassword());
+        UserLoginResponseDTO userLogin=authService.verify(userToVerify);
+        if(userLogin.getToken().isEmpty()){
+            return new ResponseEntity<>("Contraseña incorrecta", HttpStatus.UNAUTHORIZED);
+        }
+
+        //validar email
+        if(userService.existsByEmail(user.getEmail())){
+            return new ResponseEntity<>("Ya existe un usuario registrado con ese email",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Usuario updatedUser=userService.updateUserEmail(authentication.getName(), user.getEmail());
+
+        if(updatedUser==null){
+            return new ResponseEntity<>("Error al modificar el usuario",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     /*
     * Trae todos los sensores de todas las plantas del usuario autenticado reducidas en un solo sensor

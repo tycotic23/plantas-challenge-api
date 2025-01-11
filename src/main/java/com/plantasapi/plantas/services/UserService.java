@@ -1,5 +1,6 @@
 package com.plantasapi.plantas.services;
 
+import com.plantasapi.plantas.models.Factory;
 import com.plantasapi.plantas.models.Usuario;
 
 public interface UserService {
@@ -10,4 +11,7 @@ public interface UserService {
     boolean existsById(long id);
 
     boolean existsByUsername(String username);
+
+    public Usuario updateUserEmail(String username, String email);
+
 }
