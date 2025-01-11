@@ -44,4 +44,9 @@ public class UserServiceImplement implements UserService, UserDetailsService {
 
         return user;
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }

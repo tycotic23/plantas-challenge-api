@@ -7,6 +7,7 @@ import com.plantasapi.plantas.models.Usuario;
 import com.plantasapi.plantas.services.implement.AuthServiceImplement;
 import com.plantasapi.plantas.services.implement.FactoryServiceImplement;
 import com.plantasapi.plantas.services.implement.SensorServiceImplement;
+import com.plantasapi.plantas.services.implement.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,45 @@ public class UserController {
     @Autowired
     private SensorServiceImplement sensorService;
 
+    @Autowired
+    private UserServiceImplement userService;
+
     @PostMapping("/register")
-    public ResponseEntity<Usuario> register(@RequestBody Usuario user){
-        return new ResponseEntity<>(authService.register(user), HttpStatus.ACCEPTED);
+    public ResponseEntity<Object> register(@RequestBody Usuario user){
+
+        //validaciones
+        if(user.getUsername()==null || user.getUsername().isBlank()){
+            return new ResponseEntity<>("Falta el campo username",HttpStatus.BAD_REQUEST);
+        }
+        if(user.getEmail()==null || user.getEmail().isBlank()){
+            return new ResponseEntity<>("Falta el campo email "+user.getEmail(),HttpStatus.BAD_REQUEST);
+        }
+        if(user.getPassword()==null || user.getPassword().isBlank()){
+            return new ResponseEntity<>("Falta el campo password",HttpStatus.BAD_REQUEST);
+        }
+
+        if(!user.getPassword().matches("(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}")){
+            return new ResponseEntity<>("Contraseña inválida. Debe tener más de 8 caracteres, contener al menos uno especial y un número",HttpStatus.BAD_REQUEST);
+        }
+
+        //el email debe ser unico
+        if(userService.existsByEmail(user.getEmail())){
+            return new ResponseEntity<>("Ya existe un usuario registrado con ese email",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //el usuario debe ser unico
+        if(userService.existsByUsername(user.getUsername())){
+            return new ResponseEntity<>("Ya existe ese nombre de usuario",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //crear usuario
+        UserLoginResponseDTO registeredUser=authService.registerAndLogin(user);
+        if(registeredUser.getToken().isEmpty()){
+            return new ResponseEntity<>("Error al crear el usuario", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+        return new ResponseEntity<>(registeredUser, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/login")

@@ -29,6 +29,24 @@ public class AuthServiceImplement{
         return userRepository.save(user);
     }
 
+    public UserLoginResponseDTO registerAndLogin(Usuario user) {
+        String rawPassword=user.getPassword();
+        user.setPassword(encoder.encode(user.getPassword()));
+        Usuario registeredUser=userRepository.save(user);
+
+        Authentication authentication=authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        registeredUser.getUsername(),
+                        rawPassword
+                ));
+
+        if(authentication.isAuthenticated()){
+            String token=jwtService.generateToken(registeredUser.getUsername(),user.getId());
+            return new UserLoginResponseDTO(registeredUser.getUsername(),token);
+        }
+        return new UserLoginResponseDTO("","");
+    }
+
     public UserLoginResponseDTO verify(Usuario user) {
 
         Usuario finduser=userRepository.findByEmail(user.getEmail()).orElse(null);
