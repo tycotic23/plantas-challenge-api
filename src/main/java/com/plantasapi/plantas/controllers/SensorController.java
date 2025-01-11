@@ -7,7 +7,6 @@ import com.plantasapi.plantas.services.implement.FactoryServiceImplement;
 import com.plantasapi.plantas.services.implement.RecordSensorServiceImplement;
 import com.plantasapi.plantas.services.implement.SensorServiceImplement;
 import com.plantasapi.plantas.services.implement.TypeSensorServiceImplement;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -96,7 +95,7 @@ public class SensorController {
         if(sensor==null){
             return new ResponseEntity<>("Sensor no encontrado",HttpStatus.NOT_FOUND);
         }
-        sensor.setDisabledSensors(1);
+        sensor.setDisabled(1);
         //guardar en el historial
         RecordSensor recordSensor= new RecordSensor("Deshabilitar Sensor de tipo "+sensor.getType().getType() + "en la planta "+sensor.getFactory().getName(), LocalDateTime.now());
         recordSensor.setUser((Usuario) authentication.getPrincipal());
@@ -112,7 +111,7 @@ public class SensorController {
         if(sensor==null){
             return new ResponseEntity<>("Sensor no encontrado",HttpStatus.NOT_FOUND);
         }
-        sensor.setDisabledSensors(0);
+        sensor.setDisabled(0);
         //guardar en el historial
         RecordSensor recordSensor= new RecordSensor("Habilitar Sensor de tipo "+sensor.getType().getType() + "en la planta "+sensor.getFactory().getName(), LocalDateTime.now());
         recordSensor.setUser((Usuario) authentication.getPrincipal());

@@ -41,7 +41,7 @@ public class SensorServiceImplement implements SensorService {
     public Sensor updateSensor(long id, Sensor newSensor) {
         return sensorRepository.findById(id)
                 .map(sensor->{
-                    sensor.setDisabledSensors(newSensor.getDisabledSensors());
+                    sensor.setDisabled(newSensor.getDisabled());
                     sensor.setMediumAlerts(newSensor.getMediumAlerts());
                     sensor.setReadings(newSensor.getReadings());
                     sensor.setRedAlerts(newSensor.getRedAlerts());
@@ -116,7 +116,7 @@ public class SensorServiceImplement implements SensorService {
                     a.getReadings()+b.getReadings(),
                     a.getMedium_alerts()+b.getMedium_alerts(),
                     a.getRed_alerts()+b.getRed_alerts(),
-                    a.getDisabled_sensors()+b.getDisabled_sensors());
+                    a.getDisabled()+b.getDisabled());
         });
     }
 

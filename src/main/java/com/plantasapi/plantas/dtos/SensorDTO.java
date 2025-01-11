@@ -1,6 +1,5 @@
 package com.plantasapi.plantas.dtos;
 
-import com.plantasapi.plantas.models.Factory;
 import com.plantasapi.plantas.models.Sensor;
 
 public class SensorDTO {
@@ -10,18 +9,18 @@ public class SensorDTO {
     private int medium_alerts;
     private int red_alerts;
 
-    private int disabled_sensors;
+    private int disabled;
 
     public SensorDTO() {
     }
 
-    public SensorDTO(long id, String type, int readings, int medium_alerts, int red_alerts, int disabled_sensors) {
+    public SensorDTO(long id, String type, int readings, int medium_alerts, int red_alerts, int disabled) {
         this.id = id;
         this.type = type;
         this.readings = readings;
         this.medium_alerts = medium_alerts;
         this.red_alerts = red_alerts;
-        this.disabled_sensors = disabled_sensors;
+        this.disabled = disabled;
     }
 
     public SensorDTO(Sensor sensor){
@@ -30,7 +29,7 @@ public class SensorDTO {
         readings=sensor.getReadings();
         medium_alerts=sensor.getMediumAlerts();
         red_alerts=sensor.getRedAlerts();
-        disabled_sensors= sensor.getDisabledSensors();
+        disabled = sensor.getDisabled();
     }
 
     public long getId() {
@@ -53,8 +52,8 @@ public class SensorDTO {
         return type;
     }
 
-    public int getDisabled_sensors() {
-        return disabled_sensors;
+    public int getDisabled() {
+        return disabled;
     }
 
     public void sum(SensorDTO b){
@@ -63,6 +62,6 @@ public class SensorDTO {
         readings=getReadings()+b.getReadings();
         medium_alerts=getMedium_alerts()+b.getMedium_alerts();
         red_alerts=getRed_alerts()+b.getRed_alerts();
-        disabled_sensors=getDisabled_sensors()+b.getDisabled_sensors();
+        disabled = getDisabled()+b.getDisabled();
     }
 }

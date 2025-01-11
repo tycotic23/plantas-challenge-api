@@ -22,7 +22,6 @@ public class Usuario implements UserDetails {
     private String email;
 
     private String password;
-    private String picture;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<Factory> factories=new HashSet<>();
@@ -36,11 +35,10 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(String username, String email, String password, String picture) {
+    public Usuario(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.picture = picture;
     }
 
     public long getId() {
@@ -96,13 +94,6 @@ public class Usuario implements UserDetails {
         this.password = password;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public Set<Factory> getFactories() {
         return factories;

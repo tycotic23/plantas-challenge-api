@@ -10,7 +10,7 @@ public class TypeSensorDTO {
     private int medium_alerts;
     private int red_alerts;
 
-    private int disabled_sensors;
+    private int disabled;
 
 
 
@@ -20,7 +20,7 @@ public class TypeSensorDTO {
         readings=typeSensor.getSensors().stream().mapToInt(Sensor::getReadings).reduce(0,Integer::sum);
         medium_alerts=typeSensor.getSensors().stream().mapToInt(Sensor::getMediumAlerts).reduce(0,Integer::sum);
         red_alerts=typeSensor.getSensors().stream().mapToInt(Sensor::getRedAlerts).reduce(0,Integer::sum);
-        disabled_sensors= typeSensor.getSensors().stream().mapToInt(Sensor::getDisabledSensors).reduce(0,Integer::sum);
+        disabled = typeSensor.getSensors().stream().mapToInt(Sensor::getDisabled).reduce(0,Integer::sum);
     }
 
     public long getId() {
@@ -43,7 +43,7 @@ public class TypeSensorDTO {
         return type;
     }
 
-    public int getDisabled_sensors() {
-        return disabled_sensors;
+    public int getDisabled() {
+        return disabled;
     }
 }

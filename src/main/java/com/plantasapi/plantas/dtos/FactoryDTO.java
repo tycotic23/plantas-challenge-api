@@ -17,7 +17,7 @@ public class FactoryDTO {
     private int medium_alerts;
     private int red_alerts;
 
-    private int disabled_sensors;
+    private int disabled;
 
     private Set<SensorDTO> sensors=new HashSet<>();
 
@@ -29,7 +29,7 @@ public class FactoryDTO {
         readings=factory.getSensors().stream().mapToInt(Sensor::getReadings).reduce(0,Integer::sum);
         medium_alerts=factory.getSensors().stream().mapToInt(Sensor::getMediumAlerts).reduce(0,Integer::sum);
         red_alerts=factory.getSensors().stream().mapToInt(Sensor::getRedAlerts).reduce(0,Integer::sum);
-        disabled_sensors=factory.getSensors().stream().mapToInt(Sensor::getDisabledSensors).reduce(0,Integer::sum);
+        disabled =factory.getSensors().stream().mapToInt(Sensor::getDisabled).reduce(0,Integer::sum);
         sensors=factory.getSensors().stream().map(SensorDTO::new).collect(Collectors.toSet());
     }
 
@@ -57,8 +57,8 @@ public class FactoryDTO {
         return red_alerts;
     }
 
-    public int getDisabled_sensors() {
-        return disabled_sensors;
+    public int getDisabled() {
+        return disabled;
     }
 
     public Set<SensorDTO> getSensors() {

@@ -15,7 +15,7 @@ public class Sensor {
     private int readings;
     private int mediumAlerts;
     private int redAlerts;
-    private int disabledSensors;
+    private int disabled;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "factory_id")
@@ -24,18 +24,18 @@ public class Sensor {
     public Sensor() {
     }
 
-    public Sensor(int readings, int mediumAlerts, int redAlerts, int disabledSensors) {
+    public Sensor(int readings, int mediumAlerts, int redAlerts, int disabled) {
         this.readings = readings;
         this.mediumAlerts = mediumAlerts;
         this.redAlerts = redAlerts;
-        this.disabledSensors = disabledSensors;
+        this.disabled = disabled;
     }
 
     public Sensor(int readings, int mediumAlerts, int redAlerts) {
         this.readings = readings;
         this.mediumAlerts = mediumAlerts;
         this.redAlerts = redAlerts;
-        this.disabledSensors = 0;
+        this.disabled = 0;
     }
 
     public long getId() {
@@ -70,12 +70,12 @@ public class Sensor {
         this.redAlerts = redAlerts;
     }
 
-    public int getDisabledSensors() {
-        return disabledSensors;
+    public int getDisabled() {
+        return disabled;
     }
 
-    public void setDisabledSensors(int disabledSensors) {
-        this.disabledSensors = disabledSensors;
+    public void setDisabled(int disabled) {
+        this.disabled = disabled;
     }
 
     public void setType(TypeSensor type) {
