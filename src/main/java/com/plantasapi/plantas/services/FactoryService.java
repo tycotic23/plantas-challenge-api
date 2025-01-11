@@ -13,6 +13,8 @@ public interface FactoryService {
     List<Factory> findAllUserFactories(String username);
 
     List<FactoryInfoDTO> findAllUserFactoriesDTO(String username);
+
+    List<FactoryDTO> findAllUserFactoriesDTOWithSensors(String username);
     Factory saveFactory(Factory factory);
 
     void deleteFactory(long id);

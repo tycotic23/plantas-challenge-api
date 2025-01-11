@@ -15,6 +15,8 @@ public interface SensorRepository extends JpaRepository<Sensor,Long> {
     boolean existsByFactory_idAndType_id(long factory_id,long type_id);
     void deleteByFactory_idAndType_id(long factory_id,long type_id);
 
+    Optional<Sensor> findByFactory_user_usernameAndFactory_idAndType_type(String username,long factory_id,String type_type);
+
     Optional<Sensor> findByFactory_user_usernameAndId(String username, long id);
 
 
@@ -22,4 +24,5 @@ public interface SensorRepository extends JpaRepository<Sensor,Long> {
     //List<Sensor> groupByType();
 
     List<Sensor> findByFactory_user_username(String username);
+    List<Sensor> findByFactory_user_usernameAndFactory_id(String username,long factory_id);
 }

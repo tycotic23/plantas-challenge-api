@@ -31,6 +31,13 @@ public class Sensor {
         this.disabledSensors = disabledSensors;
     }
 
+    public Sensor(int readings, int mediumAlerts, int redAlerts) {
+        this.readings = readings;
+        this.mediumAlerts = mediumAlerts;
+        this.redAlerts = redAlerts;
+        this.disabledSensors = 0;
+    }
+
     public long getId() {
         return id;
     }

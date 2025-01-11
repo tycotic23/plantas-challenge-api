@@ -10,4 +10,5 @@ import java.util.Optional;
 @RepositoryRestResource
 public interface TypeSensorRepository extends JpaRepository<TypeSensor,Long> {
     Optional<TypeSensor> findByType(String type);
+    boolean existsByType(String type);
 }

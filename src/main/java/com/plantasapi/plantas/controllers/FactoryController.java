@@ -13,8 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/factory")
@@ -43,6 +43,12 @@ public class FactoryController {
         //trae todas las plantas, pero solo del usuario autenticado
         String username=authentication.getName();
         return new ResponseEntity<>(factoryService.findAllUserFactoriesDTO(username), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{id}/sensors")
+    public ResponseEntity<Map<String, SensorDTO>> allFactorySensorGroupByType(Authentication authentication,@PathVariable Long id){
+        String username=authentication.getName();
+        return new ResponseEntity<>(sensorService.FindByFactory_idAndGroupByType(username,id),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -135,9 +141,6 @@ public class FactoryController {
         if(sensor.getReadings()<0){
             return new ResponseEntity<>("Falta el campo readings y debe ser mayor o igual a cero",HttpStatus.BAD_REQUEST);
         }
-        if(sensor.getDisabled_sensors()<0){
-            return new ResponseEntity<>("Falta el campo disabled_sensors y debe ser mayor o igual a cero",HttpStatus.BAD_REQUEST);
-        }
         if(sensor.getMedium_alerts()<0){
             return new ResponseEntity<>("Falta el campo medium_alerts y debe ser mayor o igual a cero",HttpStatus.BAD_REQUEST);
         }
@@ -157,7 +160,6 @@ public class FactoryController {
 
         Sensor newSensor=new Sensor();
         newSensor.setFactory(factory);
-        newSensor.setDisabledSensors(sensor.getDisabled_sensors());
         newSensor.setReadings(sensor.getReadings());
         newSensor.setRedAlerts(sensor.getRed_alerts());
         newSensor.setMediumAlerts(sensor.getMedium_alerts());
@@ -170,5 +172,7 @@ public class FactoryController {
 
         return new ResponseEntity<>(new SensorDTO(sensorService.saveSensor(newSensor)),HttpStatus.CREATED);
     }
+
+
 
 }

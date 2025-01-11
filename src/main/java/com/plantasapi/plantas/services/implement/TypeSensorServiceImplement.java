@@ -22,4 +22,9 @@ public class TypeSensorServiceImplement implements TypeSensorService {
     public TypeSensor findByType(String type) {
         return typeSensorRepository.findByType(type).orElse(null);
     }
+
+    @Override
+    public boolean existsByType(String type) {
+        return typeSensorRepository.existsByType(type);
+    }
 }

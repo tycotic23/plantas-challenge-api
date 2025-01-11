@@ -5,31 +5,32 @@ import com.plantasapi.plantas.models.Sensor;
 public class SensorCreateDTO {
     private long id;
     private String type;
+
+    private long factory_id;
     private int readings;
     private int medium_alerts;
     private int red_alerts;
 
-    private int disabled_sensors;
 
     public SensorCreateDTO() {
     }
 
-    public SensorCreateDTO(String type, int readings, int medium_alerts, int red_alerts, int disabled_sensors) {
+    public SensorCreateDTO(String type,long factory_id, int readings, int medium_alerts, int red_alerts) {
 
         this.type = type;
+        this.factory_id=factory_id;
         this.readings = readings;
         this.medium_alerts = medium_alerts;
         this.red_alerts = red_alerts;
-        this.disabled_sensors = disabled_sensors;
     }
 
     public SensorCreateDTO(Sensor sensor){
         id=sensor.getId();
+        this.factory_id=sensor.getFactory().getId();
         type=sensor.getType().getType();
         readings=sensor.getReadings();
         medium_alerts=sensor.getMediumAlerts();
         red_alerts=sensor.getRedAlerts();
-        disabled_sensors= sensor.getDisabledSensors();
     }
 
     public long getId() {
@@ -52,9 +53,6 @@ public class SensorCreateDTO {
         return type;
     }
 
-    public int getDisabled_sensors() {
-        return disabled_sensors;
-    }
 
     public void setType(String type) {
         this.type = type;
@@ -72,7 +70,12 @@ public class SensorCreateDTO {
         this.red_alerts = red_alerts;
     }
 
-    public void setDisabled_sensors(int disabled_sensors) {
-        this.disabled_sensors = disabled_sensors;
+
+    public long getFactory_id() {
+        return factory_id;
+    }
+
+    public void setFactory_id(long factory_id) {
+        this.factory_id = factory_id;
     }
 }

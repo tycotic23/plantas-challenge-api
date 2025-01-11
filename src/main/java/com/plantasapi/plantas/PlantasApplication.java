@@ -44,11 +44,11 @@ public class PlantasApplication {
 			Usuario user2=new Usuario("jorge2","jorgisdfsdfto@gmail.com","jorgito","asdasdas");
 			Factory factory=new Factory("Argentina","hola","https://flagcdn.com/w320/gs.png");
 			Factory factory2=new Factory("Argentina","hola","https://flagcdn.com/w320/gs.png");
-			Sensor s1=new Sensor(23,54,62,34);
-			Sensor s2=new Sensor(23,54,62,34);
-			Sensor s3=new Sensor(23,54,62,34);
-			Sensor s4=new Sensor(23,54,62,34);
-			Sensor s5=new Sensor(23,54,62,34);
+			Sensor s1=new Sensor(23,54,62,0);
+			Sensor s2=new Sensor(23,54,62,0);
+			Sensor s3=new Sensor(23,54,62,0);
+			Sensor s4=new Sensor(23,54,62,0);
+			Sensor s5=new Sensor(23,54,62,1);
 
 			TypeSensor type=new TypeSensor("Temperatura");
 			TypeSensor type2=new TypeSensor("Presión");

@@ -88,6 +88,27 @@ public class SensorServiceImplement implements SensorService {
     }
 
     @Override
+    public Map<String,SensorDTO> FindByFactory_idAndGroupByType(String username,long id) {
+
+        Map<String,List<SensorDTO>> groupedSensorsDTO=sensorRepository.findByFactory_user_usernameAndFactory_id(username,id).stream()
+                .map(SensorDTO::new)
+                .collect(Collectors.groupingBy(SensorDTO::getType));
+
+        Map<String,SensorDTO> reducedSensorsDTO=new HashMap<>();
+
+        groupedSensorsDTO.forEach(
+                (type,sensors)-> {
+                    //el id es -1 para que no coincida con ninguno de la bdd, para evitar posibles errores
+                    SensorDTO acum=new SensorDTO(-1, type, 0, 0, 0, 0);
+                    sensors.forEach(acum::sum);
+                    reducedSensorsDTO.put(type,acum);
+                }
+        );
+
+        return reducedSensorsDTO;
+    }
+
+    @Override
     public SensorDTO reduceAll(String username) {
         return sensorRepository.findByFactory_user_username(username).stream().map(SensorDTO::new).reduce(new SensorDTO(-1, "type", 0, 0, 0, 0),(a,b)-> {
             return new SensorDTO(-1,
@@ -97,5 +118,10 @@ public class SensorServiceImplement implements SensorService {
                     a.getRed_alerts()+b.getRed_alerts(),
                     a.getDisabled_sensors()+b.getDisabled_sensors());
         });
+    }
+
+    @Override
+    public Sensor findByFactory_user_usernameAndFactory_idAndType_type(String username,long factory_id, String type) {
+        return sensorRepository.findByFactory_user_usernameAndFactory_idAndType_type(username,factory_id, type).orElse(null);
     }
 }

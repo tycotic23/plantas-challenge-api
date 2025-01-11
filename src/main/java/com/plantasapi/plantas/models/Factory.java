@@ -22,7 +22,7 @@ public class Factory {
     @JoinColumn(name = "user_id")
     private Usuario user;
 
-    @OneToMany(mappedBy = "factory",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "factory",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Sensor> sensors=new HashSet<>();
 
     public Factory() {

@@ -32,6 +32,11 @@ public class FactoryServiceImplement implements FactoryService {
     }
 
     @Override
+    public List<FactoryDTO> findAllUserFactoriesDTOWithSensors(String username) {
+        return findAllUserFactories(username).stream().map(FactoryDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
     public Factory saveFactory(Factory factory) {
         return factoryRepository.save(factory);
     }

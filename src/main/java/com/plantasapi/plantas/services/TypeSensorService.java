@@ -10,4 +10,6 @@ public interface TypeSensorService {
 
     TypeSensor findByType(String type);
 
+    boolean existsByType(String type);
+
 }
