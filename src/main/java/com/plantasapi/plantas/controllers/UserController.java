@@ -47,7 +47,7 @@ public class UserController {
             return new ResponseEntity<>("Falta el campo password",HttpStatus.BAD_REQUEST);
         }
 
-        if(!user.getPassword().matches("(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}")){
+        if(!user.getPassword().matches("/(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}/")){
             return new ResponseEntity<>("Contraseña inválida. Debe tener más de 8 caracteres, contener al menos uno especial y un número",HttpStatus.BAD_REQUEST);
         }
 
