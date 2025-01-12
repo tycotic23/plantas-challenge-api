@@ -1,4 +1,6 @@
-FROM amazoncorretto:17-alpine-jdk
-COPY . .
+FROM openjdk:17-slim
+
+WORKDIR /app
+COPY build/libs/plantas-0.0.1-SNAPSHOT.jar /app/plantas-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","build/libs/plantas-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/app/plantas-0.0.1-SNAPSHOT.jar"]
