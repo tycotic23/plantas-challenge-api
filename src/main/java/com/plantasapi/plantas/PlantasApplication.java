@@ -37,7 +37,7 @@ public class PlantasApplication {
 		};
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner initData(UserRepository userRepository, AuthServiceImplement authService, FactoryRepository factoryRepository, SensorRepository sensorRepository, TypeSensorRepository typeSensorRepository){
 		return (args -> {
 			Usuario admin=new Usuario("jorge","jorgito@gmail.com","jorgito");
@@ -92,6 +92,6 @@ public class PlantasApplication {
 			sensorRepository.save(s5);
 
 		});
-	}
+	}*/
 
 }
